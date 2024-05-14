@@ -5,7 +5,7 @@ window = pyglet.window.Window()
 idle_sprite = pyglet.sprite.Sprite(img=idle)
 
 idle_sprite.scale = 0.5
-idle_sprite.position = (-100, 0, 200)
+idle_sprite.position = (200, 0, 200)
 @window.event
 def on_draw():
     window.clear()
@@ -141,3 +141,4 @@ print("")
 
 tenan = Eat(sweet, vegetable, fruit, drink, dish)
 tenan.eats
+
