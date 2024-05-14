@@ -1,13 +1,17 @@
-# prints an introductory statement for the user
-
 import os
 import pyglet
 idle = pyglet.image.load_animation('ampersand_blink.gif')
 window = pyglet.window.Window()
-idle_sprite = pyglet.sprite.Sprite(img = idle)
-idle_sprite.position = (100, 100, 100)
-window.add(idle_sprite)
+idle_sprite = pyglet.sprite.Sprite(img=idle)
 
+idle_sprite.scale = 0.5
+idle_sprite.position = (-100, 0, 200)
+@window.event
+def on_draw():
+    window.clear()
+    idle_sprite.draw()
+on_draw()
+pyglet.app.run()
 
 print("")
 print("Hello! Welcome to the Complex Apartment! I'm Amp, it's nice to meet you.")
