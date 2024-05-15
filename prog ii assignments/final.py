@@ -1,20 +1,53 @@
 import os
 import pyglet
+
 idle = pyglet.image.load_animation('ampersand_blink.gif')
-window = pyglet.window.Window()
+title = "Complex Apartment"
+window = pyglet.window.Window(960, 540, title)
 idle_sprite = pyglet.sprite.Sprite(img=idle)
+text1 = pyglet.image.load('text_box1.png')
+text1_sprite = pyglet.sprite.Sprite(img=text1)
+text2 = pyglet.image.load('text_box2.png')
+text2_sprite = pyglet.sprite.Sprite(img=text2)
 
 idle_sprite.scale = 0.5
 idle_sprite.position = (200, 0, 200)
+text1_sprite.scale = 0.5
+text1_sprite.position = (50, 0, 200)
+text2_sprite.scale = 0.5
+text2_sprite.position = (300, 0, 200)
+
+intro = "Hello! Welcome to the Complex Apartment!"
+intro2 = "I'm Amp, it's nice to meet you."
+
+label = pyglet.text.Label(intro,
+                          font_name='Arial',
+                          font_size=20,
+                          x=100, y=65,
+                          color = (0, 0, 0, 255))
+
+text1_sprite.visible = False
+text2_sprite.visible = False
+
+def show_textbox(dt):
+    text1_sprite.visible = True
+    text2_sprite.visible = True
+
+def show_intro(dt):
+    idle_sprite.visible = True
+
+pyglet.clock.schedule_once(show_textbox, 0.5)
+pyglet.clock.schedule_once(show_intro, 1.0)
+
 @window.event
 def on_draw():
     window.clear()
     idle_sprite.draw()
-on_draw()
-pyglet.app.run()
+    text1_sprite.draw()
+    text2_sprite.draw()
+    label.draw()
 
-print("")
-print("Hello! Welcome to the Complex Apartment! I'm Amp, it's nice to meet you.")
+pyglet.app.run()
 
 # defines the user's character's class
 
@@ -141,4 +174,5 @@ print("")
 
 tenan = Eat(sweet, vegetable, fruit, drink, dish)
 tenan.eats
+
 
