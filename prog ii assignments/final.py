@@ -1,51 +1,114 @@
 import os
 import pyglet
 
+# compiles all images and gifs into the program
 idle = pyglet.image.load_animation('ampersand_blink.gif')
 title = "Complex Apartment"
+# creates window
 window = pyglet.window.Window(960, 540, title)
 idle_sprite = pyglet.sprite.Sprite(img=idle)
 text1 = pyglet.image.load('text_box1.png')
 text1_sprite = pyglet.sprite.Sprite(img=text1)
 text2 = pyglet.image.load('text_box2.png')
 text2_sprite = pyglet.sprite.Sprite(img=text2)
+talk = pyglet.image.load_animation('ampersand_talk.gif')
+talk_sprite = pyglet.sprite.Sprite(img=talk)
 
-idle_sprite.scale = 0.5
-idle_sprite.position = (200, 0, 200)
+# properly sizes ^ images
+
+talk_sprite.scale = 0.5
+talk_sprite.position = (200, 0, 200)
 text1_sprite.scale = 0.5
 text1_sprite.position = (50, 0, 200)
 text2_sprite.scale = 0.5
 text2_sprite.position = (300, 0, 200)
 
+# defines what the text will print
+
 intro = "Hello! Welcome to the Complex Apartment!"
+instructions = "(Press space to proceed to the next text prompt)"
 intro2 = "I'm Amp, it's nice to meet you."
+name_ask = "What is your name?"
 
-label = pyglet.text.Label(intro,
-                          font_name='Arial',
-                          font_size=20,
-                          x=100, y=65,
-                          color = (0, 0, 0, 255))
+# prints the label onto the window
 
-text1_sprite.visible = False
-text2_sprite.visible = False
+labelname = pyglet.text.Label(name_ask,
+                          font_name ='Arial',
+                          font_size = 20,
+                          x = window.width//2, y = window.height//2,
+                          anchor_x ='center', anchor_y ='center')
 
-def show_textbox(dt):
-    text1_sprite.visible = True
-    text2_sprite.visible = True
+label = pyglet.text.Label(instructions,
+                           font_name='Arial',
+                           font_size=20,
+                           x=100, y=65,
+                           color=(0, 0, 0, 255))
+label1 = pyglet.text.Label(intro,
+                           font_name='Arial',
+                           font_size=20,
+                           x=100, y=65,
+                           color=(0, 0, 0, 255))
+  
+label2 = pyglet.text.Label(intro2,
+                           font_name='Arial',
+                           font_size=20,
+                           x=100, y=65,
+                           color=(0, 0, 0, 255))
 
-def show_intro(dt):
-    idle_sprite.visible = True
+label3 = pyglet.text.Label(name_ask,
+                           font_name='Arial',
+                           font_size=20,
+                           x=100, y=65,
+                           color=(0, 0, 0, 255))
 
-pyglet.clock.schedule_once(show_textbox, 0.5)
-pyglet.clock.schedule_once(show_intro, 1.0)
+label3 = pyglet.text.Label(name_ask,
+                           font_name='Arial',
+                           font_size=20,
+                           x=100, y=65,
+                           color=(0, 0, 0, 255))                           
+
+
+text1_sprite.visible = True
+text2_sprite.visible = True
+current_text = 1
+
+# allows the text to switch between each option
+
+def switch_label():
+    global current_text
+    if current_text == 1:
+        current_text = 2
+    elif current_text == 2:
+        current_text = 3
+    elif current_text == 3:
+        current_text = 4
+
+# when the user presses the spacebar they proceed to the next dialogue
+
+@window.event
+def on_key_press(symbol, modifiers):
+    if symbol == pyglet.window.key.SPACE:
+        switch_label()
+def on_key_press(symbol, modifiers):
+    if symbol == pyglet.window.key.ENTER:
+        tenant 
+
+# draws out the sprites and text
 
 @window.event
 def on_draw():
     window.clear()
-    idle_sprite.draw()
+    talk_sprite.draw()
     text1_sprite.draw()
     text2_sprite.draw()
-    label.draw()
+    if current_text == 1:
+        label.draw()
+    elif current_text == 2:
+        label1.draw()
+    elif current_text == 3:
+        label2.draw()
+    elif current_text == 4:
+        label3.draw()
 
 pyglet.app.run()
 
@@ -99,6 +162,8 @@ print("Let's start by naming your tenant.")
 print("")
 
 # asks the user for their character's basic information
+# ideally, this would have all been printed in the window and allow the user
+# to type their input in the window with the sprite.
 
 name = input("What is your tenant's name? ")
 name = name.capitalize()
@@ -110,11 +175,13 @@ height = input("How tall are they? (Format Example - 5'4'') ")
 special_attribute = input("What's something unique about them? (Appearance, personality, etc.) ")
 
 # prints out the user's inputs in a pre-written sentence
-
+# would have been printed into the window at the end in a sequence
 tenant = Tenant(name, age, hair_color, height, special_attribute)
 tenant.describe
 
 # asks the user how their character talks
+# ideally, this would have all been printed in the window and allow the user
+# to type their input in the window with the sprite.
 
 print("")
 print("Your tenant will need to talk to their neighbors and landlord, right? Describe how they talk!")
@@ -138,12 +205,13 @@ if language > 1:
 print("")
 
 # prints out the user's inputs in a pre-written sentence
-
+# would have been printed into the window at the end in a sequence
 t = Talk(speed, tone, humor, many_languages, volume)
 t.speaks
 
 # asks the user about their character's movement statistics
-
+# ideally, this would have all been printed in the window and allow the user
+# to type their input in the window with the sprite.
 print("")
 print("How well do they move around?")
 speed = input("What speed do they move at?")
@@ -154,12 +222,13 @@ stamina = input("What's their stamina level? Ex. high, medium, low, non-existent
 print("")
 
 # prints out the user's inputs in a pre-written sentence
-
+# would have been printed into the window at the end in a sequence
 ten = Move(speed, success_rate, style, flexibility, stamina)
 ten.moves
 
 # asks the user what their character likes to eat
-
+# ideally, this would have all been printed in the window and allow the user
+# to type their input in the window with the sprite.
 print("")
 print("What do they like to eat?")
 print("")
@@ -171,8 +240,6 @@ dish = input("What's their favorite dish? ")
 print("")
 
 # prints out the user's inputs in a pre-written sentence
-
+# would have been printed into the window at the end in a sequence
 tenan = Eat(sweet, vegetable, fruit, drink, dish)
 tenan.eats
-
-
